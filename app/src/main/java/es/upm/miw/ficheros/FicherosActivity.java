@@ -1,5 +1,6 @@
 package es.upm.miw.ficheros;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -127,10 +128,14 @@ public class FicherosActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+            Log.d("Menu",getString(item.getItemId()));
         switch (item.getItemId()) {
-            // case 1:
             case R.id.accionVaciar:
                 borrarContenido();
+                break;
+            case R.id.action_settings:
+                Intent intent = new Intent(this,Ajustes.class);
+                startActivity(intent);
                 break;
         }
 

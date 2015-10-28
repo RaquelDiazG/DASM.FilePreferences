@@ -3,15 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".FicherosActivity"
-    >
+    tools:context=".FicherosActivity">
 
     <item
         android:id="@+id/accionVaciar"
         android:title="@string/opcionVaciar"
         android:icon="@android:drawable/ic_menu_delete"
         android:orderInCategory="100"
-        app:showAsAction="ifRoom|withText"
-        />
+        app:showAsAction="ifRoom|withText"/>
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/txtAjustes"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 
 </menu>
