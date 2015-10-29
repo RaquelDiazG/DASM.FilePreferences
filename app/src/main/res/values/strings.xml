@@ -18,6 +18,8 @@
     <string name="txtResumenNombreFichero">Nombre del fichero en el que se guardará la información</string>
 
     <!-- Strings related to Settings -->
+    <string name="prefNombreFichero">NombreFichero</string>
+    <string name="prefRutaFichero">RutaFichero</string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
