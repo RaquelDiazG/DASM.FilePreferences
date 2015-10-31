@@ -14,7 +14,22 @@
 
     <item android:id="@+id/action_settings"
         android:title="@string/txtAjustes"
+        android:icon="@android:drawable/ic_menu_manage"
         android:orderInCategory="100"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/estadoMemoriaExterna"
+        android:title="@string/txtGuardandoExterna"
+        android:icon="@android:drawable/stat_notify_sdcard"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"/>
+
+    <item
+        android:id="@+id/estadoMemoriaInterna"
+        android:title="@string/txtGuardandoInterna"
+        android:icon="@android:drawable/stat_notify_sdcard_usb"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"/>
 
 </menu>

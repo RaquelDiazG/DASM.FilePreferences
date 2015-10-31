@@ -26,6 +26,7 @@ public class FicherosActivity extends AppCompatActivity {
     EditText lineaTexto;
     Button botonAniadir;
     TextView contenidoFichero;
+    private Menu menu;
 
 
     @Override
@@ -107,6 +108,9 @@ public class FicherosActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         // Inflador del menú: añade elementos a la action bar
         getMenuInflater().inflate(R.menu.menu, menu);
+        //Guardamos el menu
+        this.menu = menu;
+        getPreferencias();
         return true;
     }
 
@@ -158,5 +162,19 @@ public class FicherosActivity extends AppCompatActivity {
             RUTA_FICHERO = getFilesDir() + "/" + NOMBRE_FICHERO;
         }
         Log.d("Ruta del fichero", RUTA_FICHERO);
+
+        //Ocultar o mostrar el botón
+        if (menu != null) {
+            MenuItem itemInterna = (MenuItem) menu.findItem(R.id.estadoMemoriaInterna);
+            MenuItem itemExterna = (MenuItem) menu.findItem(R.id.estadoMemoriaExterna);
+            if (guardarEnTarjetaSD) { //SD
+                itemInterna.setVisible(false);
+                itemExterna.setVisible(true);
+            } else { //interna
+                itemInterna.setVisible(true);
+                itemExterna.setVisible(false);
+            }
+        }
     }
+
 }
