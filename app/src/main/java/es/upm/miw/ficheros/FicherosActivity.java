@@ -18,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FicherosActivity extends AppCompatActivity {
 
@@ -122,8 +124,12 @@ public class FicherosActivity extends AppCompatActivity {
                 borrarContenido();
                 break;
             case R.id.action_settings:
-                Intent intent = new Intent(this, Ajustes.class);
-                startActivity(intent);
+                Intent intentAjustes = new Intent(this, Ajustes.class);
+                startActivity(intentAjustes);
+                break;
+            case R.id.accionListar:
+                Intent intentListado = new Intent(this, ListadoActivity.class);
+                startActivity(intentListado);
                 break;
         }
         return true;

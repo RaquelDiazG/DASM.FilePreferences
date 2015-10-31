@@ -32,4 +32,9 @@
         android:orderInCategory="100"
         app:showAsAction="ifRoom|withText"/>
 
+    <item
+        android:id="@+id/accionListar"
+        android:title="@string/opcionListar"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|withText"/>
 </menu>
