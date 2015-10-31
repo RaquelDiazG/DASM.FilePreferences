@@ -2,7 +2,10 @@ package es.upm.miw.ficheros;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.io.File;
@@ -13,6 +16,8 @@ public class ListadoActivity extends AppCompatActivity {
 
     private String RUTA_EXTERNA;
     private String RUTA_INTERNA;
+    private ListView lvFiles;
+    private ArrayAdapter<File> adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,19 +28,19 @@ public class ListadoActivity extends AppCompatActivity {
         RUTA_EXTERNA = getExternalFilesDir(null) + "/";
         RUTA_INTERNA = getFilesDir() + "/";
 
-        /*
+
         List<File> filesSD = getListFiles(new File(RUTA_EXTERNA));
         List<File> filesMemory = getListFiles(new File(RUTA_INTERNA));
         List<File> list=new ArrayList<>();
         list.addAll(filesMemory);
         list.addAll(filesSD);
         //Creamos un adaptador
-        ArrayAdapter<File> adaptador=new ArrayAdapter<File>(this,android.R.layout.simple_list_item_multiple_choice,list);
-        ListView lvFiles=(ListView)findViewById(R.id.listFiles);
+        adaptador=new ArrayAdapter<File>(this,android.R.layout.simple_list_item_multiple_choice,list);
+        lvFiles=(ListView)findViewById(R.id.listFiles);
         lvFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lvFiles.setAdapter(adaptador);
-        */
 
+/*
         List<String> filesSD = getFileNames(new File(RUTA_EXTERNA).listFiles());
         List<String> filesMemory = getFileNames(new File(RUTA_INTERNA).listFiles());
         List<String> list = new ArrayList<>();
@@ -43,22 +48,18 @@ public class ListadoActivity extends AppCompatActivity {
         list.addAll(filesMemory);
         //Creamos un adaptador y asignamos los datos
         ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, list);
-        ListView lvFiles = (ListView) findViewById(R.id.listFiles);
+        lvFiles = (ListView) findViewById(R.id.listFiles);
         lvFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lvFiles.setAdapter(adaptador);
-
+        */
     }
 
     private List<File> getListFiles(File parentDir) {
         List<File> listFiles = new ArrayList<>();
         File[] files = parentDir.listFiles();
         for (File file : files) {
-            if (file.isDirectory()) {
-                listFiles.addAll(getListFiles(file));
-            } else {
-                if (file.getName().endsWith(".txt")) {
-                    listFiles.add(file);
-                }
+            if (file.isFile()) {
+                listFiles.add(file);
             }
         }
         return listFiles;
@@ -76,4 +77,28 @@ public class ListadoActivity extends AppCompatActivity {
 
         return arrayFiles;
     }
+
+    public void eliminarSeleccionados(View view) {
+        //Recuperamos los elementos seleccionados
+        SparseBooleanArray checked = lvFiles.getCheckedItemPositions();
+        for (int i = 0; i < lvFiles.getCount(); i++){
+            if (checked.get(i)) {
+                //Borramos el fichero
+                File file = (File) lvFiles.getItemAtPosition(i);
+                file.delete();
+            }
+        }
+        //Notificamos al adaptador que hay cambios
+        adaptador.notifyDataSetChanged();
+    }
+    public void eliminarTodos(View view) {
+        for (int i = 0; i < lvFiles.getCount(); i++){
+                //Borramos el fichero
+                File file = (File) lvFiles.getItemAtPosition(i);
+                file.delete();
+        }
+        //Notificamos al adaptador que hay cambios
+        adaptador.notifyDataSetChanged();
+    }
+
 }
