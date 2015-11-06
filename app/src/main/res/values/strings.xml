@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Sesión 4: Ficheros</string>
+    <string name="app_name">Ficheros</string>
 
     <string name="botónAñadir">Añadir</string>
     <string name="opcionVaciar">Borrar</string>
-    <string name="opcionListar">Listado</string>
+    <string name="opcionListar">Lista de ficheros</string>
     <string name="txtEliminarTodos">Eliminar todos</string>
     <string name="txtEliminarSeleccionados">Eliminar seleccionados</string>
     <string name="hintTexto">Texto a añadir</string>

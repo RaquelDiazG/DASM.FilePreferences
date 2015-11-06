@@ -98,7 +98,7 @@ public class FicherosActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         if (!hayContenido) {
-            Toast.makeText(this, getString(R.string.txtFicheroVacio), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.txtFicheroVacio), Toast.LENGTH_LONG).show();
         }
     }
 

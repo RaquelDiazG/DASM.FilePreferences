@@ -2,10 +2,10 @@ package es.upm.miw.ficheros;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.io.File;
@@ -25,18 +25,11 @@ public class ListadoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_listado);
 
         //Recuperamos todos los ficheros
-        RUTA_EXTERNA = getExternalFilesDir(null) + "/";
-        RUTA_INTERNA = getFilesDir() + "/";
+        List<File> list = getAllFiles();
 
-
-        List<File> filesSD = getListFiles(new File(RUTA_EXTERNA));
-        List<File> filesMemory = getListFiles(new File(RUTA_INTERNA));
-        List<File> list=new ArrayList<>();
-        list.addAll(filesMemory);
-        list.addAll(filesSD);
         //Creamos un adaptador
-        adaptador=new ArrayAdapter<File>(this,android.R.layout.simple_list_item_multiple_choice,list);
-        lvFiles=(ListView)findViewById(R.id.listFiles);
+        adaptador = new ArrayAdapter<File>(this, android.R.layout.simple_list_item_multiple_choice, list);
+        lvFiles = (ListView) findViewById(R.id.listFiles);
         lvFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lvFiles.setAdapter(adaptador);
 
@@ -54,12 +47,27 @@ public class ListadoActivity extends AppCompatActivity {
         */
     }
 
-    private List<File> getListFiles(File parentDir) {
+    private List<File> getAllFiles() {
+        RUTA_EXTERNA = getExternalFilesDir(null) + "/";
+        RUTA_INTERNA = getFilesDir() + "/";
+        List<File> filesSD = getListFilesFromDirectory(new File(RUTA_EXTERNA));
+        Log.d("Ficheros externa", filesSD.toString());
+        List<File> filesMemory = getListFilesFromDirectory(new File(RUTA_INTERNA));
+        Log.d("Ficheros memory", filesMemory.toString());
+        List<File> list = new ArrayList<>();
+        list.addAll(filesMemory);
+        list.addAll(filesSD);
+        return list;
+    }
+
+    private List<File> getListFilesFromDirectory(File parentDir) {
         List<File> listFiles = new ArrayList<>();
-        File[] files = parentDir.listFiles();
-        for (File file : files) {
-            if (file.isFile()) {
-                listFiles.add(file);
+        if (parentDir != null) {
+            File[] files = parentDir.listFiles();
+            for (File file : files) {
+                if (file.isFile()) {
+                    listFiles.add(file);
+                }
             }
         }
         return listFiles;
@@ -70,7 +78,7 @@ public class ListadoActivity extends AppCompatActivity {
         if (file.length == 0)
             return null;
         else {
-            for (File aFile : file){
+            for (File aFile : file) {
                 arrayFiles.add(aFile.getName());
             }
         }
@@ -81,7 +89,7 @@ public class ListadoActivity extends AppCompatActivity {
     public void eliminarSeleccionados(View view) {
         //Recuperamos los elementos seleccionados
         SparseBooleanArray checked = lvFiles.getCheckedItemPositions();
-        for (int i = 0; i < lvFiles.getCount(); i++){
+        for (int i = 0; i < lvFiles.getCount(); i++) {
             if (checked.get(i)) {
                 //Borramos el fichero
                 File file = (File) lvFiles.getItemAtPosition(i);
@@ -89,15 +97,22 @@ public class ListadoActivity extends AppCompatActivity {
             }
         }
         //Notificamos al adaptador que hay cambios
+        adaptador.clear();
+        List<File> listFiles = getAllFiles();
+        adaptador.addAll(listFiles);
         adaptador.notifyDataSetChanged();
     }
+
     public void eliminarTodos(View view) {
-        for (int i = 0; i < lvFiles.getCount(); i++){
-                //Borramos el fichero
-                File file = (File) lvFiles.getItemAtPosition(i);
-                file.delete();
+        for (int i = 0; i < lvFiles.getCount(); i++) {
+            //Borramos el fichero
+            File file = (File) lvFiles.getItemAtPosition(i);
+            file.delete();
         }
         //Notificamos al adaptador que hay cambios
+        adaptador.clear();
+        List<File> listFiles = getAllFiles();
+        adaptador.addAll(listFiles);
         adaptador.notifyDataSetChanged();
     }
 

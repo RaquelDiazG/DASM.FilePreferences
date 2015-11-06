@@ -54,10 +54,10 @@ public class AjustesFragment extends PreferenceFragment {
             @Override
             public boolean onPreferenceChange(Preference pref, Object val) {
                 String nombreFichero = (String) val;
-                SharedPreferences sharedPref = getActivity().getSharedPreferences("Preferences",Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.prefNombreFichero), nombreFichero);
-                Log.d("Pref nombre añadida",nombreFichero);
+                Log.d("Pref nombre añadida", nombreFichero);
                 editor.commit();
                 return true;
             }
