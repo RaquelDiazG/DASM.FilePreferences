@@ -1,49 +1,39 @@
 package es.upm.miw.ficheros;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 
 public class AjustesFragment extends PreferenceFragment {
 
-    String ListPreference;
-    boolean CheckboxPreference;
     private Context contexto;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Load the preferences from an XML resource
+        //Guardar el contexto
+        contexto = getActivity().getApplicationContext();
+
+        // Leer preferencias del recurso XML
         getPreferenceManager().setSharedPreferencesName("Preferences");
         addPreferencesFromResource(R.xml.preferences);
 
-        //Guardar el contexto
-        contexto =  getActivity().getApplicationContext();
-
-        //Añadimos un listener para guardar las preferencias del almacenamiento
-        final CheckBoxPreference pref = (CheckBoxPreference) findPreference("checkbox_preference");
-        pref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        //Añadimos un listener para guardar las preferencias del almacenamiento (checkbox)
+        final CheckBoxPreference checkbox_preference = (CheckBoxPreference) findPreference("checkbox_preference");
+        checkbox_preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference pref, Object val) {
+                //Recuperamos el valor
                 Boolean checkBoxVal = (Boolean) val;
+                //Añadimos el valor a las preferencias
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean(getString(R.string.prefRutaFichero), checkBoxVal);
@@ -55,12 +45,14 @@ public class AjustesFragment extends PreferenceFragment {
             }
         });
 
-        //Añadimos un listener para guardar las preferencias del almacenamiento
-        final EditTextPreference pref2 = (EditTextPreference) findPreference("edittext_preference");
-        pref2.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+        //Añadimos un listener para guardar las preferencias del almacenamiento (nombre fichero)
+        final EditTextPreference edittext_preference = (EditTextPreference) findPreference("edittext_preference");
+        edittext_preference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference pref, Object val) {
+                //Recuperamos el valor
                 String nombreFichero = (String) val;
+                //Añadimos el valor a las preferencias
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.prefNombreFichero), nombreFichero);

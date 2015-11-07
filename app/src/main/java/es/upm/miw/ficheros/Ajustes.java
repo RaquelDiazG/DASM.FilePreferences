@@ -1,8 +1,6 @@
 package es.upm.miw.ficheros;
 
 import android.app.Activity;
-import android.preference.PreferenceActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class Ajustes extends Activity {

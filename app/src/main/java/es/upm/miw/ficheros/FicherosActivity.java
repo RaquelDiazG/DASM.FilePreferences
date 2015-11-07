@@ -18,18 +18,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FicherosActivity extends AppCompatActivity {
 
     private static String NOMBRE_FICHERO;
     private static String RUTA_FICHERO;
-    EditText lineaTexto;
-    Button botonAniadir;
-    TextView contenidoFichero;
+    private EditText lineaTexto;
+    private Button botonAniadir;
+    private TextView contenidoFichero;
     private Menu menu;
-    private Context contexto;
 
     @Override
     protected void onStart() {
@@ -42,9 +39,6 @@ public class FicherosActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficheros);
-
-        //Guardar el contexto
-        contexto =  getApplicationContext();
 
         lineaTexto = (EditText) findViewById(R.id.textoIntroducido);
         botonAniadir = (Button) findViewById(R.id.botonAniadir);

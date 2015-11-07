@@ -1,7 +1,7 @@
 package es.upm.miw.ficheros;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -17,7 +17,7 @@ public class ListadoActivity extends AppCompatActivity {
 
     private String RUTA_EXTERNA;
     private String RUTA_INTERNA;
-    private ListView lvFiles;
+    private ListView listViewFiles;
     private ArrayAdapter<File> adaptador;
 
     @Override
@@ -28,13 +28,13 @@ public class ListadoActivity extends AppCompatActivity {
         //Recuperamos todos los ficheros
         List<File> list = getAllFiles();
 
-        //Creamos un adaptador
+        //Creamos un adaptador y le añadimos los datos
         adaptador = new ArrayAdapter<File>(this, android.R.layout.simple_list_item_multiple_choice, list);
-        lvFiles = (ListView) findViewById(R.id.listFiles);
-        lvFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        lvFiles.setAdapter(adaptador);
+        listViewFiles = (ListView) findViewById(R.id.listFiles);
+        listViewFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listViewFiles.setAdapter(adaptador);
 
-/*
+    /*
         List<String> filesSD = getFileNames(new File(RUTA_EXTERNA).listFiles());
         List<String> filesMemory = getFileNames(new File(RUTA_INTERNA).listFiles());
         List<String> list = new ArrayList<>();
@@ -42,12 +42,15 @@ public class ListadoActivity extends AppCompatActivity {
         list.addAll(filesMemory);
         //Creamos un adaptador y asignamos los datos
         ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, list);
-        lvFiles = (ListView) findViewById(R.id.listFiles);
-        lvFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        lvFiles.setAdapter(adaptador);
-        */
+        listViewFiles = (ListView) findViewById(R.id.listFiles);
+        listViewFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listViewFiles.setAdapter(adaptador);
+    */
     }
 
+    /*
+     * Funcion auxiliar para recuperar todos los ficheros de memoria y tarjeta (ruta + nombre)
+     */
     private List<File> getAllFiles() {
         RUTA_EXTERNA = getExternalFilesDir(null) + "/";
         RUTA_INTERNA = getFilesDir() + "/";
@@ -61,6 +64,9 @@ public class ListadoActivity extends AppCompatActivity {
         return list;
     }
 
+    /*
+     * Funcion auxiliar que recupera la ruta con los nombres de los ficheros
+     */
     private List<File> getListFilesFromDirectory(File parentDir) {
         List<File> listFiles = new ArrayList<>();
         if (parentDir != null) {
@@ -74,6 +80,9 @@ public class ListadoActivity extends AppCompatActivity {
         return listFiles;
     }
 
+    /*
+     * Funcion auxiliar que recupera los nombres de los ficheros
+     */
     private ArrayList<String> getFileNames(File[] file) {
         ArrayList<String> arrayFiles = new ArrayList<>();
         if (file.length == 0)
@@ -83,17 +92,16 @@ public class ListadoActivity extends AppCompatActivity {
                 arrayFiles.add(aFile.getName());
             }
         }
-
         return arrayFiles;
     }
 
-    public void eliminarSeleccionados(View view) {
+    public void eliminarSeleccionados(View view) { //Click en boton
         //Recuperamos los elementos seleccionados
-        SparseBooleanArray checked = lvFiles.getCheckedItemPositions();
-        for (int i = 0; i < lvFiles.getCount(); i++) {
+        SparseBooleanArray checked = listViewFiles.getCheckedItemPositions();
+        for (int i = 0; i < listViewFiles.getCount(); i++) {
             if (checked.get(i)) {
                 //Borramos el fichero
-                File file = (File) lvFiles.getItemAtPosition(i);
+                File file = (File) listViewFiles.getItemAtPosition(i);
                 file.delete();
             }
         }
@@ -106,10 +114,10 @@ public class ListadoActivity extends AppCompatActivity {
         Toast.makeText(this, "Ficheros seleccionados eliminados correctamente", Toast.LENGTH_LONG).show();
     }
 
-    public void eliminarTodos(View view) {
-        for (int i = 0; i < lvFiles.getCount(); i++) {
+    public void eliminarTodos(View view) { //Click en boton
+        for (int i = 0; i < listViewFiles.getCount(); i++) {
             //Borramos el fichero
-            File file = (File) lvFiles.getItemAtPosition(i);
+            File file = (File) listViewFiles.getItemAtPosition(i);
             file.delete();
         }
         //Notificamos al adaptador que hay cambios
