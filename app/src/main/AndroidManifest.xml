@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Ajustes"
+            android:name=".AjustesActivity"
             android:label="@string/txtAjustes"></activity>
         <activity
             android:name=".ListadoActivity"

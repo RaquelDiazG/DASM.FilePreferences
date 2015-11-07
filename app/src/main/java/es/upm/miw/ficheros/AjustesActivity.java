@@ -3,7 +3,7 @@ package es.upm.miw.ficheros;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class Ajustes extends Activity {
+public class AjustesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

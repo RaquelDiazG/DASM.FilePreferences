@@ -129,8 +129,8 @@ public class FicherosActivity extends AppCompatActivity {
             case R.id.accionVaciar:
                 borrarContenido();
                 break;
-            case R.id.action_settings:
-                Intent intentAjustes = new Intent(this, Ajustes.class);
+            case R.id.accionAjustes:
+                Intent intentAjustes = new Intent(this, AjustesActivity.class);
                 startActivity(intentAjustes);
                 break;
             case R.id.accionListar:

@@ -15,7 +15,7 @@
     <string name="txtGuardandoInterna">Interna</string>
     <string name="txtOpcionesAlmacenamiento">Opciones de Almacenamiento</string>
     <string name="txtResumenOpcionesAlmacenamiento">Opciones relativas al almacenamiento de ficheros</string>
-    <string name="title_activity_ajustes">Ajustes</string>
+    <string name="tituloAjustesActivity">Ajustes</string>
 
     <string name="txtAlmacenamientoSD">Almacenamiento en tarjeta SD</string>
     <string name="txtResumenAlmacenamientoSD">Si se activa esta opción se almacenará la información en la tarjeta SD (si está disponible)</string>
