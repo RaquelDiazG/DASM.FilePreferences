@@ -29,7 +29,7 @@ public class FicherosActivity extends AppCompatActivity {
     Button botonAniadir;
     TextView contenidoFichero;
     private Menu menu;
-
+    private Context contexto;
 
     @Override
     protected void onStart() {
@@ -42,6 +42,9 @@ public class FicherosActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficheros);
+
+        //Guardar el contexto
+        contexto =  getApplicationContext();
 
         lineaTexto = (EditText) findViewById(R.id.textoIntroducido);
         botonAniadir = (Button) findViewById(R.id.botonAniadir);
@@ -147,6 +150,8 @@ public class FicherosActivity extends AppCompatActivity {
             Log.i("FICHERO", "opción Limpiar -> VACIAR el fichero");
             lineaTexto.setText(""); // limpio la linea de edición
             mostrarContenido(contenidoFichero);
+            //Notificacion
+            Toast.makeText(this, "Fichero eliminado correctamente", Toast.LENGTH_LONG).show();
         } catch (Exception e) {
             Log.e("FILE I/O", "ERROR: " + e.getMessage());
             e.printStackTrace();

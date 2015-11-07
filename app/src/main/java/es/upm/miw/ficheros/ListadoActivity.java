@@ -7,6 +7,7 @@ import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +102,8 @@ public class ListadoActivity extends AppCompatActivity {
         List<File> listFiles = getAllFiles();
         adaptador.addAll(listFiles);
         adaptador.notifyDataSetChanged();
+        //Notificacion
+        Toast.makeText(this, "Ficheros seleccionados eliminados correctamente", Toast.LENGTH_LONG).show();
     }
 
     public void eliminarTodos(View view) {
@@ -114,6 +117,8 @@ public class ListadoActivity extends AppCompatActivity {
         List<File> listFiles = getAllFiles();
         adaptador.addAll(listFiles);
         adaptador.notifyDataSetChanged();
+        //Notificacion
+        Toast.makeText(this, "Todos losficheros eliminados correctamente", Toast.LENGTH_LONG).show();
     }
 
 }

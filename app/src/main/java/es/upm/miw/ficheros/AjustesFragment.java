@@ -18,12 +18,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 public class AjustesFragment extends PreferenceFragment {
 
     String ListPreference;
     boolean CheckboxPreference;
+    private Context contexto;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class AjustesFragment extends PreferenceFragment {
         // Load the preferences from an XML resource
         getPreferenceManager().setSharedPreferencesName("Preferences");
         addPreferencesFromResource(R.xml.preferences);
+
+        //Guardar el contexto
+        contexto =  getActivity().getApplicationContext();
 
         //Añadimos un listener para guardar las preferencias del almacenamiento
         final CheckBoxPreference pref = (CheckBoxPreference) findPreference("checkbox_preference");
@@ -42,8 +47,10 @@ public class AjustesFragment extends PreferenceFragment {
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean(getString(R.string.prefRutaFichero), checkBoxVal);
-                Log.d("Preferencia SD añadida", Boolean.toString(checkBoxVal));
                 editor.commit();
+                //Notificacion
+                Toast.makeText(contexto, "Preferencia añadida correctamente", Toast.LENGTH_LONG).show();
+                Log.d("Preferencia SD añadida", Boolean.toString(checkBoxVal));
                 return true;
             }
         });
@@ -57,8 +64,10 @@ public class AjustesFragment extends PreferenceFragment {
                 SharedPreferences sharedPref = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.prefNombreFichero), nombreFichero);
-                Log.d("Pref nombre añadida", nombreFichero);
                 editor.commit();
+                //Notificacion
+                Toast.makeText(contexto, "Preferencia añadida correctamente", Toast.LENGTH_LONG).show();
+                Log.d("Pref nombre añadida", nombreFichero);
                 return true;
             }
         });
