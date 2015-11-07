@@ -25,8 +25,12 @@ public class ListadoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado);
 
+        //Recuperamos las rutas
+        RUTA_EXTERNA = getExternalFilesDir(null) + "/";
+        RUTA_INTERNA = getFilesDir() + "/";
+
         //Recuperamos todos los ficheros
-        List<File> list = getAllFiles();
+        List<File> list = getAllFilesWithRouteAndName();
 
         //Creamos un adaptador y le añadimos los datos
         adaptador = new ArrayAdapter<File>(this, android.R.layout.simple_list_item_multiple_choice, list);
@@ -34,26 +38,12 @@ public class ListadoActivity extends AppCompatActivity {
         listViewFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listViewFiles.setAdapter(adaptador);
 
-    /*
-        List<String> filesSD = getFileNames(new File(RUTA_EXTERNA).listFiles());
-        List<String> filesMemory = getFileNames(new File(RUTA_INTERNA).listFiles());
-        List<String> list = new ArrayList<>();
-        list.addAll(filesSD);
-        list.addAll(filesMemory);
-        //Creamos un adaptador y asignamos los datos
-        ArrayAdapter<String> adaptador = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, list);
-        listViewFiles = (ListView) findViewById(R.id.listFiles);
-        listViewFiles.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        listViewFiles.setAdapter(adaptador);
-    */
     }
 
     /*
      * Funcion auxiliar para recuperar todos los ficheros de memoria y tarjeta (ruta + nombre)
      */
-    private List<File> getAllFiles() {
-        RUTA_EXTERNA = getExternalFilesDir(null) + "/";
-        RUTA_INTERNA = getFilesDir() + "/";
+    private List<File> getAllFilesWithRouteAndName() {
         List<File> filesSD = getListFilesFromDirectory(new File(RUTA_EXTERNA));
         Log.d("Ficheros externa", filesSD.toString());
         List<File> filesMemory = getListFilesFromDirectory(new File(RUTA_INTERNA));
@@ -78,6 +68,20 @@ public class ListadoActivity extends AppCompatActivity {
             }
         }
         return listFiles;
+    }
+
+    /*
+     * Funcion auxiliar para recuperar todos los ficheros de memoria y tarjeta (nombre)
+     */
+    private List<String> getAllFilesWithName() {
+        List<String> filesSD = getFileNames(new File(RUTA_EXTERNA).listFiles());
+        Log.d("Ficheros externa", filesSD.toString());
+        List<String> filesMemory = getFileNames(new File(RUTA_INTERNA).listFiles());
+        Log.d("Ficheros memory", filesMemory.toString());
+        List<String> list = new ArrayList<>();
+        list.addAll(filesSD);
+        list.addAll(filesMemory);
+        return list;
     }
 
     /*
@@ -107,7 +111,7 @@ public class ListadoActivity extends AppCompatActivity {
         }
         //Notificamos al adaptador que hay cambios
         adaptador.clear();
-        List<File> listFiles = getAllFiles();
+        List<File> listFiles = getAllFilesWithRouteAndName();
         adaptador.addAll(listFiles);
         adaptador.notifyDataSetChanged();
         //Notificacion
@@ -122,11 +126,11 @@ public class ListadoActivity extends AppCompatActivity {
         }
         //Notificamos al adaptador que hay cambios
         adaptador.clear();
-        List<File> listFiles = getAllFiles();
+        List<File> listFiles = getAllFilesWithRouteAndName();
         adaptador.addAll(listFiles);
         adaptador.notifyDataSetChanged();
         //Notificacion
-        Toast.makeText(this, "Todos losficheros eliminados correctamente", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Todos los ficheros eliminados correctamente", Toast.LENGTH_LONG).show();
     }
 
 }

@@ -40,9 +40,12 @@ public class FicherosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ficheros);
 
+        //Identificamos los elementos
         lineaTexto = (EditText) findViewById(R.id.textoIntroducido);
         botonAniadir = (Button) findViewById(R.id.botonAniadir);
         contenidoFichero = (TextView) findViewById(R.id.contenidoFichero);
+
+        //Recuperamos las preferencias
         getPreferencias();
     }
 
@@ -53,7 +56,10 @@ public class FicherosActivity extends AppCompatActivity {
      * @param v Botón añadir
      */
     public void accionAniadir(View v) {
+
+        //Recuperamos las preferencias
         getPreferencias();
+
         try {  // Añadir al fichero
             FileOutputStream fos = new FileOutputStream(RUTA_FICHERO, true);
             fos.write(lineaTexto.getText().toString().getBytes());
@@ -74,7 +80,9 @@ public class FicherosActivity extends AppCompatActivity {
      * @param textviewContenidoFichero TextView contenido del fichero
      */
     public void mostrarContenido(View textviewContenidoFichero) {
+        //Recuperamos las preferencias
         getPreferencias();
+
         boolean hayContenido = false;
         File fichero = new File(RUTA_FICHERO);
         contenidoFichero.setText("");
@@ -109,6 +117,7 @@ public class FicherosActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         //Guardamos el menu
         this.menu = menu;
+        //Recuperamos las preferencias
         getPreferencias();
         return true;
     }
@@ -136,7 +145,9 @@ public class FicherosActivity extends AppCompatActivity {
      * Vaciar el contenido del fichero, la línea de edición y actualizar
      */
     public void borrarContenido() {
+        //Recuperamos las preferencias
         getPreferencias();
+
         try {  // Vaciar el fichero
             // FileOutputStream fos = openFileOutput(NOMBRE_FICHERO, Context.MODE_PRIVATE);
             FileOutputStream fos = new FileOutputStream(RUTA_FICHERO);
@@ -170,8 +181,8 @@ public class FicherosActivity extends AppCompatActivity {
 
         //Ocultar o mostrar el botón
         if (menu != null) {
-            MenuItem itemInterna = (MenuItem) menu.findItem(R.id.estadoMemoriaInterna);
-            MenuItem itemExterna = (MenuItem) menu.findItem(R.id.estadoMemoriaExterna);
+            MenuItem itemInterna = menu.findItem(R.id.estadoMemoriaInterna);
+            MenuItem itemExterna = menu.findItem(R.id.estadoMemoriaExterna);
             if (guardarEnTarjetaSD) { //SD
                 itemInterna.setVisible(false);
                 itemExterna.setVisible(true);
